@@ -908,6 +908,42 @@
             </ContentControl>
           </Grid>
         </TabItem>
+
+        <TabItem>
+          <TabItem.Header>
+            <TextBlock Classes="tab_header" Text="GitHub / GitLab"/>
+          </TabItem.Header>
+          <Grid Margin="16">
+            <StackPanel Orientation="Vertical" Spacing="8">
+              <TextBlock Text="GitHub Personal Access Token"
+                         FontWeight="Bold"
+                         Foreground="{DynamicResource Brush.FG1}"/>
+              <TextBox Height="28"
+                       CornerRadius="4"
+                       PasswordChar="●"
+                       Watermark="ghp_xxxxxxxxxxxxxxxxxxxx"
+                       Text="{Binding Source={x:Static vm:Preferences.Instance}, Path=GitHubApiToken, Mode=TwoWay}"/>
+              <TextBlock Text="Required scopes: repo (read access)"
+                         FontSize="11"
+                         Foreground="{DynamicResource Brush.FG2}"/>
+
+              <Separator Height="1" Background="{DynamicResource Brush.Border2}" Margin="0,8"/>
+
+              <TextBlock Text="GitLab Personal Access Token"
+                         FontWeight="Bold"
+                         Foreground="{DynamicResource Brush.FG1}"/>
+              <TextBox Height="28"
+                       CornerRadius="4"
+                       PasswordChar="●"
+                       Watermark="glpat-xxxxxxxxxxxxxxxxxxxx"
+                       Text="{Binding Source={x:Static vm:Preferences.Instance}, Path=GitLabApiToken, Mode=TwoWay}"/>
+              <TextBlock Text="Required scopes: read_api"
+                         FontSize="11"
+                         Foreground="{DynamicResource Brush.FG2}"/>
+            </StackPanel>
+          </Grid>
+        </TabItem>
+
       </TabControl>
     </Border>
   </Grid>

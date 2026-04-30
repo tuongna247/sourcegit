@@ -351,6 +351,18 @@ namespace SourceGit.ViewModels
             set => SetProperty(ref _gitDefaultCloneDir, value);
         }
 
+        public string GitHubApiToken
+        {
+            get => _githubApiToken;
+            set => SetProperty(ref _githubApiToken, value);
+        }
+
+        public string GitLabApiToken
+        {
+            get => _gitlabApiToken;
+            set => SetProperty(ref _gitlabApiToken, value);
+        }
+
         public bool UseLibsecretInsteadOfGCM
         {
             get => Native.OS.CredentialHelper.Equals("libsecret", StringComparison.Ordinal);
@@ -844,5 +856,7 @@ namespace SourceGit.ViewModels
         private string _gitDefaultCloneDir = string.Empty;
         private int _shellOrTerminalType = -1;
         private uint _statisticsSampleColor = 0xFF00FF00;
+        private string _githubApiToken = string.Empty;
+        private string _gitlabApiToken = string.Empty;
     }
 }

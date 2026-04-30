@@ -67,6 +67,8 @@ namespace SourceGit.ViewModels
                     {
                         1 => _workingCopy,
                         2 => _stashesPage,
+                        3 => _pullRequestsPage,
+                        4 => _terminalSession,
                         _ => _histories,
                     };
                 }
@@ -463,6 +465,8 @@ namespace SourceGit.ViewModels
             _histories = new Histories(this);
             _workingCopy = new WorkingCopy(this) { CommitMessage = _uiStates.LastCommitMessage };
             _stashesPage = new StashesPage(this);
+            _pullRequestsPage = new PullRequestsPage(this);
+            _terminalSession = new TerminalSession(FullPath);
             _searchCommitContext = new SearchCommitContext(this);
 
             if (Preferences.Instance.ShowLocalChangesByDefault)
@@ -486,6 +490,9 @@ namespace SourceGit.ViewModels
             SelectedView = null; // Do NOT modify. Used to remove exists widgets for GC.Collect
             Logs.Clear();
 
+            _terminalSession?.Dispose();
+            _terminalSession = null;
+            _pullRequestsPage = null;
             _uiStates.Unload(_workingCopy.CommitMessage);
 
             if (_cancellationRefreshBranches is { IsCancellationRequested: false })
@@ -1981,6 +1988,8 @@ namespace SourceGit.ViewModels
         private Histories _histories = null;
         private WorkingCopy _workingCopy = null;
         private StashesPage _stashesPage = null;
+        private PullRequestsPage _pullRequestsPage = null;
+        private TerminalSession _terminalSession = null;
         private int _selectedViewIndex = 0;
         private object _selectedView = null;
 
