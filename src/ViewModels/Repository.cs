@@ -765,6 +765,39 @@ namespace SourceGit.ViewModels
                 ShowPopup(new Apply(this));
         }
 
+        public async Task UndoLastCommitAsync()
+        {
+            if (IsBare || !CanCreatePopup())
+                return;
+
+            var head = await new Commands.QueryRevisionByRefName(FullPath, "HEAD").GetResultAsync();
+            if (string.IsNullOrEmpty(head))
+            {
+                SendNotification("No commits to undo!", true);
+                return;
+            }
+
+            var parent = await new Commands.QueryRevisionByRefName(FullPath, "HEAD~1").GetResultAsync();
+            if (string.IsNullOrEmpty(parent))
+            {
+                SendNotification("Cannot undo: this is the first commit!", true);
+                return;
+            }
+
+            using var lockWatcher = LockWatcher();
+            var log = CreateLog("Undo Last Commit");
+            var succ = await new Commands.Reset(FullPath, "HEAD~1", "--soft")
+                .Use(log)
+                .ExecAsync();
+            log.Complete();
+
+            if (succ)
+            {
+                SendNotification("Last commit undone. Changes are staged.");
+                RefreshAll();
+            }
+        }
+
         public async Task ExecCustomActionAsync(Models.CustomAction action, object scopeTarget)
         {
             if (!CanCreatePopup())
