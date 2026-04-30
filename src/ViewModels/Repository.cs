@@ -1020,6 +1020,22 @@ namespace SourceGit.ViewModels
             RefreshCommits();
         }
 
+        public void ToggleCurrentBranchFilter()
+        {
+            if (_currentBranch == null)
+                return;
+
+            var filters = _uiStates.HistoryFilters;
+            var isAlreadyFilteredToCurrentBranch = filters.Count == 1
+                && filters[0].Pattern == _currentBranch.FullName
+                && filters[0].Mode == Models.FilterMode.Included;
+
+            if (isAlreadyFilteredToCurrentBranch)
+                ClearHistoryFilters();
+            else
+                SetBranchFilterMode(_currentBranch, Models.FilterMode.Included, true, true);
+        }
+
         public void RemoveHistoryFilter(Models.HistoryFilter filter)
         {
             if (_uiStates.HistoryFilters.Remove(filter))

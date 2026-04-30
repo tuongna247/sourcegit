@@ -227,6 +227,18 @@ namespace SourceGit.Views
             }
         }
 
+        private void FilterToCurrentBranchByHotKey(object sender, RoutedEventArgs e)
+        {
+            if (App.GetLauncher() is { CommandPalette: { } } launcher)
+                return;
+
+            if (DataContext is ViewModels.Repository repo)
+            {
+                repo.ToggleCurrentBranchFilter();
+                e.Handled = true;
+            }
+        }
+
         private async void StashAll(object _, TappedEventArgs e)
         {
             if (DataContext is ViewModels.Repository repo)
