@@ -132,6 +132,11 @@ namespace SourceGit.Views
                     LocalChangesSearchBox.Focus();
                     e.Handled = true;
                 }
+                else if (e.Key is Key.OemQuestion && e.KeyModifiers == KeyModifiers.None)
+                {
+                    LocalChangesSearchBox.Focus();
+                    e.Handled = true;
+                }
             }
         }
 
@@ -167,6 +172,11 @@ namespace SourceGit.Views
                     e.Handled = true;
                 }
                 else if (e.Key is Key.F && e.KeyModifiers == cmdKey)
+                {
+                    LocalChangesSearchBox.Focus();
+                    e.Handled = true;
+                }
+                else if (e.Key is Key.OemQuestion && e.KeyModifiers == KeyModifiers.None)
                 {
                     LocalChangesSearchBox.Focus();
                     e.Handled = true;

@@ -805,8 +805,8 @@ namespace SourceGit.ViewModels
         private string _themeOverrides = string.Empty;
         private string _defaultFontFamily = string.Empty;
         private string _monospaceFontFamily = string.Empty;
-        private double _defaultFontSize = 13;
-        private double _editorFontSize = 13;
+        private double _defaultFontSize = 14;
+        private double _editorFontSize = 14;
         private int _editorTabWidth = 4;
         private double _zoom = 1.0;
         private LayoutInfo _layout = new();
